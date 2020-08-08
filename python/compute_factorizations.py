@@ -68,7 +68,10 @@ if __name__ == "__main__":
                 os.makedirs(dir_name)
 
     for filename in filenames:
-        input_file = SeqIO.parse(path.join(input_path, filename), 'fasta')
+        if input_path_is_dir:
+            input_file = SeqIO.parse(path.join(input_path, filename), 'fasta')
+        else:
+            input_file = SeqIO.parse(path.abspath(filename), 'fasta')
 
         if output_path is None:
             output_file = sys.stdout
